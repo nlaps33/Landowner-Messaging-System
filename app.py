@@ -239,7 +239,7 @@ if page == "Send Messages":
                         try:
                             client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
                             message = client.messages.create(
-                                body=message_text,
+                                body=(message_text.strip() if "reply stop" in message_text.lower() else message_text.strip() + chr(10) + chr(10) + "Central Land Consulting project update. Msg & data rates may apply. Reply STOP to opt out, HELP for help."),
                                 from_=TWILIO_PHONE_NUMBER,
                                 to=target_number,
                             )
@@ -257,7 +257,7 @@ if page == "Send Messages":
                     "Landowner": recipient_name,
                     "Phone": target_number or raw_phone,
                     "Direction": "Outbound (Twilio Network)",
-                    "Message": message_text,
+                    "Message": (message_text.strip() if "reply stop" in message_text.lower() else message_text.strip() + chr(10) + chr(10) + "Central Land Consulting project update. Msg & data rates may apply. Reply STOP to opt out, HELP for help."),
                     "Status": status,
                 })
 
